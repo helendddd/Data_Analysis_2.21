@@ -84,7 +84,9 @@ def create_db(database_path: Path) -> None:
     conn.close()
 
 
-def add_student(database_path: Path, name: str, group: str, performance: t.List[int]) -> None:
+def add_student(
+    database_path: Path, name: str, group: str, performance: t.List[int]
+) -> None:
     """
     Добавить студента в базу данных.
     """
@@ -149,7 +151,7 @@ def select_all(database_path: Path) -> t.List[t.Dict[str, t.Any]]:
         {
             "name": row[0],
             "group": row[1],
-            "performance": list(map(int, row[2].split(",")))
+            "performance": list(map(int, row[2].split(","))),
         }
         for row in rows
     ]
@@ -179,7 +181,7 @@ def find(
         {
             "name": row[0],
             "group": row[1],
-            "performance": list(map(int, row[2].split(",")))
+            "performance": list(map(int, row[2].split(","))),
         }
         for row in rows
     ]
@@ -209,9 +211,15 @@ def main(command_line=None):
         "add", parents=[file_parser], help="Add a new student"
     )
     add.add_argument(
-        "-n", "--name", action="store", required=True, help="The student's name"
+        "-n",
+        "--name",
+        action="store",
+        required=True,
+        help="The student's name",
     )
-    add.add_argument("-g", "--group", action="store", help="The student's group")
+    add.add_argument(
+        "-g", "--group", action="store", help="The student's group"
+    )
     add.add_argument(
         "-p",
         "--performance",

@@ -5,6 +5,7 @@ distlib==0.3.8
 filelock==3.14.0
 flake8==7.0.0
 identify==2.5.36
+isort==5.13.2
 mccabe==0.7.0
 mypy-extensions==1.0.0
 nodeenv==1.8.0

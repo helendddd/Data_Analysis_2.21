@@ -46,7 +46,7 @@ def display_students(students: t.List[t.Dict[str, t.Any]]) -> None:
                     student.get("group", ""),
                     ", ".join(map(str, student.get("performance", []))),
                 )
-            ) 
+            )
             print(line)
 
     else:
@@ -63,7 +63,7 @@ def create_db(conn) -> None:
         password="12345",
         host="localhost",
         port=5432,
-        ) as conn:
+    ) as conn:
         with conn.cursor() as cursor:
             cursor.execute(
                 """
@@ -72,7 +72,7 @@ def create_db(conn) -> None:
                     group_number VARCHAR(50) NOT NULL
                 )
                 """
-                  )
+            )
             cursor.execute(
                 """
                 CREATE TABLE IF NOT EXISTS students (
@@ -82,7 +82,7 @@ def create_db(conn) -> None:
                     performance TEXT NOT NULL
                 )
                 """
-                   )
+            )
             conn.commit()
     cursor.close()
 
@@ -170,7 +170,7 @@ def find(students: t.List[t.Dict[str, t.Any]]) -> None:
         {
             "name": row[0],
             "group": row[1],
-            "performance": list(map(int, row[2].split(",")))
+            "performance": list(map(int, row[2].split(","))),
         }
         for row in rows
     ]
@@ -203,7 +203,7 @@ def select_all(conn) -> t.List[t.Dict[str, t.Any]]:
         {
             "name": row[0],
             "group": row[1],
-            "performance": list(map(int, row[2].split(",")))
+            "performance": list(map(int, row[2].split(","))),
         }
         for row in rows
     ]
@@ -232,10 +232,15 @@ def main(command_line=None):
         "add", parents=[file_parser], help="Add a new student"
     )
     add.add_argument(
-        "-n", "--name", action="store", required=True, help="The student's name"
+        "-n",
+        "--name",
+        action="store",
+        required=True,
+        help="The student's name",
     )
     add.add_argument(
-        "-g", "--group", action="store", help="The student's group")
+        "-g", "--group", action="store", help="The student's group"
+    )
     add.add_argument(
         "-p",
         "--performance",
@@ -270,7 +275,7 @@ def main(command_line=None):
     # Отобразить всех студентов.
     elif args.command == "display":
         display_students(select_all(conn))
-    
+
         # Выбрать требуемых рааботников.
     elif args.command == "find":
         display_students(find(conn))
