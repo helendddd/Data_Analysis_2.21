@@ -171,8 +171,9 @@ def find(
         SELECT students.student_name, groups.group_number, students.performance
         FROM students
         INNER JOIN groups ON groups.group_id = students.group_id
-        WHERE '2' IN (students.performance)
-        """
+        WHERE students.performance LIKE ?
+        """,
+        ("%2%",),
     )
     rows = cursor.fetchall()
 
